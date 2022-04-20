@@ -4,7 +4,7 @@ const createTeam = team => {
 <div class="card">
     <div class="card-header">
         <h2 class="card-title">${manager.getName()}</h2>
-        <h3 class="card-title">${maanger.getRole()}</h3>
+        <h3 class="card-title">${manager.getRole()}</h3>
     </div>
     <div class="card-body">
         <ul class="list-group">
@@ -17,15 +17,63 @@ const createTeam = team => {
         `
     }
 
-    const cards = [];
+    const createEngineer = engineer => {
+        return `
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">${engineer.getName()}</h2>
+        <h3 class="card-title">${engineer.getRole()}</h3>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">ID: ${engineer.getId()}</li>
+            <li class="list-group-item">Email: ${engineer.getEmail()}</li>
+            <li class="list-group-item">GitHub: ${engineer.getGithub()}</li>
+        </ul>
+    </div>
+</div>
+        `
+    }
 
+    const createIntern = intern => {
+        return `
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">${intern.getName()}</h2>
+        <h3 class="card-title">${intern.getRole()}</h3>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">ID: ${intern.getId()}</li>
+            <li class="list-group-item">Email: ${intern.getEmail()}</li>
+            <li class="list-group-item">Office Number: ${intern.getSchool()}</li>
+        </ul>
+    </div>
+</div>
+        `
+    }
+
+    const cards = [];
+    console.log(team);
     cards.push(team
         .filter(employee => employee.getRole() === 'Manager')
         .map(manager => createManager(manager))
         // .join('') for engineer and intern
     );
 
-    return html.join('');
+    cards.push(team
+        .filter(employee => employee.getRole() === 'Engineer')
+        .map(engineer => createEngineer(engineer))
+        .join('')
+    );
+
+    cards.push(team
+        .filter(employee => employee.getRole() === 'Intern')
+        .map(intern => createIntern(intern))
+        .join('')
+    );
+
+    return cards.join('');
 
 
 }
